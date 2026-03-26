@@ -139,9 +139,10 @@ Your Question ──▶ Chat API ──▶ Semantic Search (ChromaDB)
 ## 📂 Project Structure
 
 ```
+├── .env                     # All app settings (required — no hardcoded defaults)
 ├── app/
 │   ├── main.py              # FastAPI app entry point & page routes
-│   ├── config.py            # All app settings (model, paths, limits)
+│   ├── config.py            # Loads settings from .env (no defaults in code)
 │   ├── routes/
 │   │   ├── chat.py          # Chat API endpoints (POST /api/chat)
 │   │   └── documents.py     # Document API endpoints (upload, stats, reset)
@@ -195,7 +196,35 @@ source rag_env/bin/activate       # Linux / macOS
 pip install -r requirements.txt
 ```
 
-### 4. Install and Start Ollama
+### 4. Set Up the Environment File
+
+The app requires a `.env` file in the project root — **there are no hardcoded defaults in the code**. Create one:
+
+```bash
+cp .env.example .env   # if an example file is provided, or create manually:
+```
+
+```env
+# Ollama
+OLLAMA_BASE_URL=http://localhost:11434
+LLM_MODEL=llama3.1:8b
+
+# ChromaDB
+CHROMA_PERSIST_DIR=chroma_data
+CHROMA_COLLECTION_NAME=rag_documents
+
+# PDF processing
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
+
+# File uploads
+UPLOAD_DIR=uploads
+MAX_FILE_SIZE_MB=50
+```
+
+> **Important:** The app will fail to start if any variable is missing from `.env`.
+
+### 5. Install and Start Ollama
 
 Download Ollama from [ollama.com](https://ollama.com/download) and install it. Then pull the Llama 3.1 model:
 
@@ -211,13 +240,13 @@ ollama serve
 
 > **Note:** Ollama typically runs automatically in the background after installation. You can verify by visiting `http://localhost:11434` in your browser — you should see "Ollama is running".
 
-### 5. Start the Chatbot
+### 6. Start the Chatbot
 
 ```bash
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-### 6. Open in Your Browser
+### 7. Open in Your Browser
 
 - **Upload Documents:** [http://localhost:8000](http://localhost:8000)
 - **Chat Interface:** [http://localhost:8000/chat](http://localhost:8000/chat)
@@ -251,26 +280,38 @@ python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 ## ⚙️ Configuration
 
-All settings can be customized via environment variables or a `.env` file in the project root:
+All settings are managed through the `.env` file in the project root. **There are no hardcoded defaults** — every value must be defined in `.env`. This keeps configuration explicit, portable, and easy to change without modifying code.
 
-| Variable | Default | Description |
+| Variable | Recommended Value | Description |
 |---|---|---|
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | URL where Ollama is running |
 | `LLM_MODEL` | `llama3.1:8b` | Ollama model to use for answers |
-| `CHROMA_PERSIST_DIR` | `./chroma_data` | Where ChromaDB stores its data |
+| `CHROMA_PERSIST_DIR` | `chroma_data` | Where ChromaDB stores its data (relative or absolute path) |
 | `CHROMA_COLLECTION_NAME` | `rag_documents` | Name of the ChromaDB collection |
 | `CHUNK_SIZE` | `1000` | Characters per text chunk |
 | `CHUNK_OVERLAP` | `200` | Overlapping characters between chunks |
-| `UPLOAD_DIR` | `./uploads` | Temporary PDF upload directory |
+| `UPLOAD_DIR` | `uploads` | PDF upload directory (relative or absolute path) |
 | `MAX_FILE_SIZE_MB` | `50` | Maximum upload file size in MB |
 
-**Example `.env` file:**
+> **Note:** `CHROMA_PERSIST_DIR` and `UPLOAD_DIR` support both relative paths (resolved from the project root) and absolute paths.
+
+**Full `.env` file:**
 
 ```env
+# Ollama
 OLLAMA_BASE_URL=http://localhost:11434
 LLM_MODEL=llama3.1:8b
+
+# ChromaDB
+CHROMA_PERSIST_DIR=chroma_data
+CHROMA_COLLECTION_NAME=rag_documents
+
+# PDF processing
 CHUNK_SIZE=1000
 CHUNK_OVERLAP=200
+
+# File uploads
+UPLOAD_DIR=uploads
 MAX_FILE_SIZE_MB=50
 ```
 
