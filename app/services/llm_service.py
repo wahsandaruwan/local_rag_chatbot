@@ -47,7 +47,8 @@ async def generate_stream(prompt: str, system: str = "") -> AsyncGenerator[str, 
         payload["system"] = system
 
     try:
-        async with httpx.AsyncClient(timeout=120.0) as client:
+        timeout = httpx.Timeout(timeout=300.0, connect=10.0)
+        async with httpx.AsyncClient(timeout=timeout) as client:
             async with client.stream(
                 "POST",
                 f"{settings.OLLAMA_BASE_URL}/api/generate",
@@ -67,5 +68,5 @@ async def generate_stream(prompt: str, system: str = "") -> AsyncGenerator[str, 
     except httpx.ConnectError:
         yield "\n\n⚠️ Error: Cannot connect to Ollama. Please ensure it is running."
     except Exception as e:
-        logger.error(f"LLM generation error: {e}")
-        yield f"\n\n⚠️ Error: {e}"
+        logger.error(f"LLM generation error ({type(e).__name__}): {e}")
+        yield f"\n\n⚠️ Error ({type(e).__name__}): {e}"

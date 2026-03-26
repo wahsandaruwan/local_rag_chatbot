@@ -7,7 +7,7 @@ class Settings(BaseSettings):
 
     # Ollama
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    LLM_MODEL: str = "llama3.1"
+    LLM_MODEL: str = "llama3.1:8b"
 
     # ChromaDB
     CHROMA_PERSIST_DIR: str = os.path.join(
