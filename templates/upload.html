@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Documents - RAG Chatbot{% endblock %}
+{% block nav_upload %}active{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <h1 class="page-title">
+                <i class="bi bi-file-earmark-pdf text-accent"></i>
+                Knowledge Base
+            </h1>
+            <p class="text-muted">Upload PDF documents to build your AI's knowledge base</p>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="glass-card mb-4" id="stats-card">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="stat-icon">
+                        <i class="bi bi-database"></i>
+                    </div>
+                    <div>
+                        <div class="stat-label">Documents in Knowledge Base</div>
+                        <div class="stat-value" id="doc-count">
+                            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline-danger btn-sm" id="reset-btn" onclick="resetKnowledgeBase()" title="Reset Knowledge Base">
+                    <i class="bi bi-trash3 me-1"></i> Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="glass-card upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+            <input type="file" id="file-input" accept=".pdf" hidden>
+            <div class="upload-icon">
+                <i class="bi bi-cloud-arrow-up"></i>
+            </div>
+            <h4>Drop your PDF here or click to browse</h4>
+            <p class="text-muted mb-0">Maximum file size: 50MB</p>
+        </div>
+
+        <!-- Upload Progress -->
+        <div class="glass-card mt-3 d-none" id="progress-card">
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <i class="bi bi-file-earmark-pdf text-accent"></i>
+                <span id="upload-filename" class="text-truncate"></span>
+            </div>
+            <div class="progress progress-custom">
+                <div class="progress-bar progress-bar-animated" id="progress-bar" role="progressbar" style="width: 0%"></div>
+            </div>
+            <div class="mt-2 small" id="progress-status">Uploading...</div>
+        </div>
+
+        <!-- Upload History -->
+        <div class="glass-card mt-3 d-none" id="history-card">
+            <h5 class="mb-3"><i class="bi bi-clock-history me-2"></i>Recent Uploads</h5>
+            <div id="upload-history"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/upload.js"></script>
+{% endblock %}

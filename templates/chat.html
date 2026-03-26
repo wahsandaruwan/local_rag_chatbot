@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Chat - RAG Chatbot{% endblock %}
+{% block nav_chat %}active{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <!-- Health Status Bar -->
+        <div class="health-bar mb-3" id="health-bar">
+            <div class="d-flex align-items-center gap-3 flex-wrap">
+                <div class="health-item" id="ollama-status">
+                    <span class="health-dot"></span>
+                    <span>Ollama</span>
+                </div>
+                <div class="health-item" id="db-status">
+                    <span class="health-dot"></span>
+                    <span>Knowledge Base: <strong id="kb-count">0</strong> chunks</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container glass-card">
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chat-messages">
+                <!-- Welcome Message -->
+                <div class="welcome-message" id="welcome-msg">
+                    <div class="welcome-icon">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <h3>Hello! I'm your RAG Assistant</h3>
+                    <p class="text-muted">
+                        Ask me anything about your uploaded documents.<br>
+                        I'll provide answers based on your knowledge base.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <form id="chat-form" onsubmit="sendMessage(event)">
+                    <div class="input-group">
+                        <textarea
+                            id="chat-input"
+                            class="form-control chat-textarea"
+                            placeholder="Ask a question about your documents..."
+                            rows="1"
+                            required
+                        ></textarea>
+                        <button type="submit" class="btn btn-accent" id="send-btn" title="Send Message">
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="input-hint text-muted">
+                    Press <kbd>Enter</kbd> to send, <kbd>Shift+Enter</kbd> for new line
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/chat.js"></script>
+{% endblock %}
