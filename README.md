@@ -46,7 +46,7 @@ This is a **Retrieval-Augmented Generation (RAG)** chatbot. In simple terms:
 | **Embeddings** | [Sentence-Transformers](https://www.sbert.net/) (all-MiniLM-L6-v2) | Converts text into numerical vectors for smart searching |
 | **Vector Database** | [ChromaDB](https://www.trychroma.com/) | Stores and searches document embeddings efficiently |
 | **PDF Processing** | [PyPDF2](https://pypdf2.readthedocs.io/) | Extracts text from PDF files page by page |
-| **Frontend** | HTML5, CSS3, Vanilla JavaScript | Clean UI with no heavy frameworks needed |
+| **Frontend** | HTML5, CSS3, Bootstrap 5, Vanilla JavaScript | Clean UI with no heavy frameworks needed |
 | **Templating** | [Jinja2](https://jinja.palletsprojects.com/) | Server-side HTML page rendering |
 | **HTTP Client** | [httpx](https://www.python-httpx.org/) | Async communication with the Ollama API |
 | **Configuration** | [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/) | Type-safe configuration with `.env` file support |
