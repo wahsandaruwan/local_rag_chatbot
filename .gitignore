@@ -1,0 +1,30 @@
+# Virtual environment
+rag_env/
+myenv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# ChromaDB persistent storage
+chroma_data/
+
+# Uploaded files
+uploads/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
