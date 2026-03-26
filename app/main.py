@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app.routes import documents, chat
+from app.config import settings
 
 # Configure logging
 logging.basicConfig(
@@ -58,5 +59,5 @@ async def chat_page(request: Request):
 async def startup_event():
     """Initialize services on startup."""
     # Ensure upload directory exists
-    os.makedirs(os.path.join(BASE_DIR, "uploads"), exist_ok=True)
+    os.makedirs(settings.upload_path, exist_ok=True)
     logger.info("RAG Chatbot started successfully")

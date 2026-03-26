@@ -27,8 +27,8 @@ async def upload_document(file: UploadFile = File(...)):
         )
 
     # Save file temporarily
-    os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
-    file_path = os.path.join(settings.UPLOAD_DIR, file.filename)
+    os.makedirs(settings.upload_path, exist_ok=True)
+    file_path = os.path.join(settings.upload_path, file.filename)
     try:
         with open(file_path, "wb") as f:
             f.write(content)
