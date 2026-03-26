@@ -178,7 +178,7 @@ Your Question ──▶ Chat API ──▶ Semantic Search (ChromaDB)
 
 ```bash
 git clone <your-repo-url>
-cd "Pro. 06 (Local RAG Chatbot)"
+cd "local_rag_chatbot"
 ```
 
 ### 2. Set Up a Virtual Environment
